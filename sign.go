@@ -290,14 +290,14 @@ func (ctx *SigningContext) createNamespacedElement(el *etree.Element, tag string
 	return child
 }
 
-func (ctx *SigningContext) SignEnveloped(el *etree.Element) (*etree.Element, error) {
+func (ctx *SigningContext) SignEnveloped(el *etree.Element, index int) (*etree.Element, error) {
 	sig, err := ctx.ConstructSignature(el, true)
 	if err != nil {
 		return nil, err
 	}
 
 	ret := el.Copy()
-	ret.Child = append(ret.Child, sig)
+	ret.InsertChildAt(index, sig)
 
 	return ret, nil
 }
